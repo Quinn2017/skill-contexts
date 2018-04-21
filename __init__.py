@@ -45,8 +45,8 @@ class GhostSkill(MycroftSkill):
         self.speak("Did you hear anything outside?", expect_response=True)
 
     @intent_handler(IntentBuilder("OutsideIntent").require("QuestionKeyword").require("KitchenContext").build())
-    @removes_context("KitchenContext")
     @adds_context("OutsideContext")
+    @removes_context("KitchenContext")
     def handle_Outside_intent(self, message):
         self.Outside = True
         self.speak("I heard something outside again. Did you?", expect_response=True)
@@ -55,6 +55,7 @@ class GhostSkill(MycroftSkill):
     def handle_Response_intent(self, message):
         self.Outside = True
         self.speak("There is something here.")
+    @removes_context("OutsideContext")
 
     def stop(self):
         pass
